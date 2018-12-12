@@ -1,0 +1,31 @@
+{
+    "name": "native-toast-plugin",
+    "version": "0.0.1",
+    "description": "A Cordova plugin that allows to display native toast on the screen.",
+    "cordova": {
+      "id": "native-toast-plugin",
+      "platforms": [
+        "android"
+      ]
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/rcanalesz/native-toast-plugin.git"
+    },
+    "keywords": [
+      "Toast",
+      "Notification",
+      "Message",
+      "Alert",
+      "ecosystem:cordova",
+      "cordova-android"
+    ],
+    "engines": [
+      {
+        "name": "cordova",
+        "version": ">=3.0.0"
+      }
+    ],
+    "author": "Rodrigo Canales <rcanalez@everis.com>",
+    "homepage": "https://github.com/rcanalesz/native-toast-plugin/"
+  }
