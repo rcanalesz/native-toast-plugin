@@ -139,9 +139,9 @@ public class NativeToastPlugin extends CordovaPlugin {
     }
 
 
-    public void showToast(String toast){
+    public void showToast(String msg){
 
-        Toast toast = Toast.makeText(cordova.getActivity(), toast, Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(cordova.getActivity(), msg, Toast.LENGTH_LONG);
         // Display toast
         toast.show();
 
