@@ -121,6 +121,13 @@ public class NativeToastPlugin extends CordovaPlugin {
                     Log.i("RESPONSE" , text);
 
 
+
+                    //create TOAST
+                    Toast toast = Toast.makeText(cordova.getActivity(), text, Toast.LENGTH_LONG);        
+                    // Display toast
+                    toast.show();
+
+
                     conn.disconnect();
                 } catch (Exception e) {
                     e.printStackTrace();
