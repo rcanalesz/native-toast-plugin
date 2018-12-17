@@ -18,7 +18,9 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -69,45 +71,63 @@ public class NativeToastPlugin extends CordovaPlugin {
 
 
 
-  public void sendPost() {
-      Thread thread = new Thread(new Runnable() {
-          @Override
-          public void run() {
-              try {
-                  URL url = new URL("http://mobileaws2.entel.pe/mobileservices2/rest/GetDefaultNumber");
-                  HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                  conn.setRequestMethod("POST");
-                  conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
-                  conn.setRequestProperty("Accept","application/json");
-                  conn.setDoOutput(true);
-                  conn.setDoInput(true);
+    public void sendPost() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL("http://mobileaws2.entel.pe/mobileservices2/rest/GetDefaultNumber");
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestMethod("POST");
+                    conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+                    conn.setRequestProperty("Accept","application/json");
+                    conn.setDoOutput(true);
+                    conn.setDoInput(true);
 
-                  /*
-                  JSONObject jsonParam = new JSONObject();
-                  jsonParam.put("timestamp", 1488873360);
-                  jsonParam.put("uname", message.getUser());
-                  jsonParam.put("message", message.getMessage());
-                  jsonParam.put("latitude", 0D);
-                  jsonParam.put("longitude", 0D);
+                    /*
+                    JSONObject jsonParam = new JSONObject();
+                    jsonParam.put("timestamp", 1488873360);
+                    jsonParam.put("uname", message.getUser());
+                    jsonParam.put("message", message.getMessage());
+                    jsonParam.put("latitude", 0D);
+                    jsonParam.put("longitude", 0D);
 
-                  Log.i("JSON", jsonParam.toString());*/
-                  DataOutputStream os = new DataOutputStream(conn.getOutputStream());
-                  //os.writeBytes(URLEncoder.encode(jsonParam.toString(), "UTF-8"));
-                  //os.writeBytes(jsonParam.toString());
+                    Log.i("JSON", jsonParam.toString());*/
+                    DataOutputStream os = new DataOutputStream(conn.getOutputStream());
+                    //os.writeBytes(URLEncoder.encode(jsonParam.toString(), "UTF-8"));
+                    //os.writeBytes(jsonParam.toString());
 
-                  os.flush();
-                  os.close();
+                    os.flush();
+                    os.close();
 
-                  Log.i("STATUS", String.valueOf(conn.getResponseCode()));
-                  Log.i("MSG" , conn.getResponseMessage());
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    StringBuilder sb = new StringBuilder();
+                    String line = null;
 
-                  conn.disconnect();
-              } catch (Exception e) {
-                  e.printStackTrace();
-              }
-          }
-      });
+                    // Read Server Response
+                    while((line = reader.readLine()) != null)
+                    {
+                        // Append server response in string
+                        sb.append(line + "\n");
+                    }
 
-      thread.start();
-  }
+                    String text = sb.toString();
+
+
+                    Log.i("STATUS", String.valueOf(conn.getResponseCode()));
+                    Log.i("MSG" , conn.getResponseMessage());
+
+
+                    Log.i("RESPONSE" , text);
+
+
+                    conn.disconnect();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
+    }
 }
