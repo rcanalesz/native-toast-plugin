@@ -122,10 +122,8 @@ public class NativeToastPlugin extends CordovaPlugin {
 
 
 
-                    //create TOAST
-                    Toast toast = Toast.makeText(cordova.getActivity(), text, Toast.LENGTH_LONG);        
-                    // Display toast
-                    toast.show();
+
+                    showToast(text);
 
 
                     conn.disconnect();
@@ -136,5 +134,11 @@ public class NativeToastPlugin extends CordovaPlugin {
         });
 
         thread.start();
+    }
+
+
+    public void showToast(final String toast)
+    {
+        runOnUiThread(() -> Toast.makeText(cordova.getActivity(), toast, Toast.LENGTH_LONG).show());
     }
 }
