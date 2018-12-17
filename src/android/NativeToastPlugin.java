@@ -139,6 +139,14 @@ public class NativeToastPlugin extends CordovaPlugin {
 
     public void showToast(final String toast)
     {
-        runOnUiThread(() -> Toast.makeText(cordova.getActivity(), toast, Toast.LENGTH_LONG).show());
+        runOnUiThread (new Thread(new Runnable() {
+            public void run() {
+
+                Toast toast = Toast.makeText(cordova.getActivity(), toast, Toast.LENGTH_LONG);
+                // Display toast
+                toast.show(); 
+                
+            }
+        }));
     }
 }
