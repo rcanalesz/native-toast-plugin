@@ -10,7 +10,7 @@ NativeToastPlugin.prototype.show = function(message, duration, successCallback, 
   cordova.exec(successCallback, errorCallback, 'NativeToastPlugin', 'show', [options]);
 }
 
-ToastyPlugin.prototype.call = function( successCallback, errorCallback) {
+NativeToastPlugin.prototype.call = function( successCallback, errorCallback) {
   var options = {};
   cordova.exec(successCallback, errorCallback, 'NativeToastPlugin', 'call', [options]);
 }
