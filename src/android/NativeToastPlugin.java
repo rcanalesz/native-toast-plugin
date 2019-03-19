@@ -137,8 +137,9 @@ public class NativeToastPlugin extends CordovaPlugin {
 
         thread.start();
     }
-
-
+  
+    final String msg = toast;
+    
     public void showToast(String msg){
 
 
